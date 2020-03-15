@@ -1,51 +1,52 @@
 import React from "react";
-import styled, { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
+import theme from "./theme";
 
 const GlobalStyle = createGlobalStyle`
   body {
-    padding:0;
-    margin:0;
+    padding: 0;
+    margin: 0;
   }
+`;
+
+const Card = styled.div`
+  background-color: black;
+`;
+
+const Button = styled.button`
+  border-radius: 30px;
+  padding: 25px 15px;
+  background-color: ${props => props.theme.successColor};
 `;
 
 class App extends React.Component {
   render() {
     return (
-      <Container>
-        <GlobalStyle />
-        <Button>Accept</Button>
-        <Button danger>Deny</Button>
-        <Anchor as="a" href="http://www.google.com">
-          Back to Google
-        </Anchor>
-      </Container>
+      <ThemeProvider theme={theme}>
+        <Container>
+          <GlobalStyle />
+          <Form />
+        </Container>
+      </ThemeProvider>
     );
   }
 }
 
+const Form = () => {
+  return (
+    <Card>
+      <Button>Hello</Button>
+    </Card>
+  );
+};
+
 const Container = styled.div`
   height: 100vh;
   width: 100%;
-  background-color: pink;
-`;
-
-const Button = styled.button`
-  border-radius: 50px;
-  padding: 5px;
-  min-width: 100px;
-  color: white;
-  font-weight: 400;
-  -webkit-appearance: none;
-  cursor: pointer;
-  &:active,
-  &:focus {
-    outline: none;
+  background-color: #322f20;
+  ${Card}:last-child {
+    background-color: violet;
   }
-  background-color: ${props => (props.danger ? "#e74c3c" : "#2ecc71")};
-`;
-
-const Anchor = styled(Button)`
-  text-decoration: none;
 `;
 
 export default App;
